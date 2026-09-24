@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biologi – Evolution och livets utveckling</title>
+  <style>
+    :root {
+      --sage:        #6b8c72;
+      --sage-dark:   #3d5742;
+      --sage-deep:   #2a3d2e;
+      --sage-mid:    #b0c5b3;
+      --sage-pale:   #edf2ee;
+      --sage-faint:  #f4f6f4;
+      --stone:       #7c7060;
+      --stone-light: #c8bfb0;
+      --bg:          #f0f2ee;
+      --card:        #ffffff;
+      --text:        #252e25;
+      --text-muted:  #677067;
+      --correct:     #3d6e4a;
+      --wrong:       #8c3a3a;
+      --shadow-sm:   0 1px 4px rgba(30,40,30,0.06), 0 2px 12px rgba(30,40,30,0.05);
+      --shadow-md:   0 4px 20px rgba(30,40,30,0.10);
+      --radius:      12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 0.975rem;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--sage-deep);
+      color: white;
+      padding: 3rem 1.5rem 2.75rem;
+      text-align: center;
+      border-bottom: 3px solid var(--sage-dark);
+    }
+
+    .header-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage-mid);
+      margin-bottom: 0.6rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.3rem, 3.5vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: #e8ede9;
+    }
+
+    /* ── STICKY BAR ── */
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--card);
+      border-bottom: 1px solid #dde3dd;
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sticky-bar-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-all {
+      flex-shrink: 0;
+      background: var(--sage-dark);
+      color: #e8ede9;
+      border: none;
+      padding: 0.55rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+
+    .btn-all:hover { background: var(--sage-deep); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1rem 5rem;
+    }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+      border: 1px solid #dde4dd;
+    }
+
+    .section-head {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid #eaf0ea;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      opacity: 0.85;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--sage-dark);
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    .section-body { padding: 1.25rem 1.4rem; }
+
+    .section-body p { margin-bottom: 0.75rem; color: #2e3a2e; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    .callout {
+      background: var(--sage-faint);
+      border-left: 2px solid var(--sage);
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 0.85rem 0;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: #2e3a2e;
+    }
+
+    .callout strong { color: var(--sage-dark); }
+
+    .species-list { list-style: none; margin: 0.85rem 0; }
+
+    .species-list li {
+      padding: 0.65rem 1rem;
+      margin-bottom: 0.4rem;
+      background: var(--sage-faint);
+      border-radius: 8px;
+      border: 1px solid #dde4dd;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .species-list li strong { color: var(--sage-dark); }
+
+    .section-foot {
+      padding: 0.85rem 1.4rem 1.2rem;
+      border-top: 1px solid #eaf0ea;
+      background: var(--sage-faint);
+    }
+
+    .btn-mini {
+      background: transparent;
+      color: var(--sage-dark);
+      border: 1.5px solid var(--sage);
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      letter-spacing: 0.03em;
+      transition: background 0.14s, color 0.14s;
+      font-family: inherit;
+    }
+
+    .btn-mini:hover {
+      background: var(--sage-dark);
+      color: white;
+    }
+
+    /* ── MODAL ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 16, 0.6);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: white;
+      border-radius: 16px;
+      max-width: 540px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 32px 80px rgba(10,20,10,0.28);
+      transform: translateY(16px);
+      transition: transform 0.2s;
+      border: 1px solid #dde4dd;
+    }
+
+    .overlay.open .modal { transform: translateY(0); }
+
+    .modal-head {
+      background: var(--sage-deep);
+      color: #e8ede9;
+      padding: 1.15rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 16px 16px 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .modal-head-title { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em; }
+
+    .btn-close {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #c8d4ca;
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.14s;
+    }
+
+    .btn-close:hover { background: rgba(255,255,255,0.2); }
+
+    .progress-track { background: rgba(255,255,255,0.12); height: 3px; }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--sage-mid);
+      transition: width 0.35s ease;
+    }
+
+    .modal-body { padding: 1.6rem; }
+
+    .q-counter {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .q-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1.15rem;
+      line-height: 1.5;
+    }
+
+    .options { display: grid; gap: 0.5rem; }
+
+    .opt-btn {
+      background: var(--sage-faint);
+      border: 1px solid #dde4dd;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.93rem;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+      color: var(--text);
+      font-family: inherit;
+      line-height: 1.45;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      background: var(--sage-pale);
+      border-color: var(--sage);
+    }
+
+    .opt-btn.correct {
+      background: #daeee0;
+      border-color: var(--correct);
+      color: #1e3d27;
+    }
+
+    .opt-btn.wrong {
+      background: #f0dada;
+      border-color: var(--wrong);
+      color: #5a1a1a;
+    }
+
+    .opt-btn:disabled { cursor: default; }
+
+    .feedback {
+      margin-top: 0.9rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .feedback.correct { background: #daeee0; color: #1e3d27; border: 1px solid #a8cdb3; display: block; }
+    .feedback.wrong   { background: #f0dada; color: #5a1a1a; border: 1px solid #d4a8a8; display: block; }
+
+    .btn-next {
+      display: none;
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--sage-dark);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.14s;
+      font-family: inherit;
+    }
+
+    .btn-next.show { display: block; }
+    .btn-next:hover { background: var(--sage-deep); }
+
+    /* ── RESULT ── */
+    .result {
+      text-align: center;
+      padding: 0.5rem 0 1rem;
+      display: none;
+    }
+
+    .result.show { display: block; }
+
+    .result-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+
+    .result-heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--sage-dark);
+    }
+
+    .result-score {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--sage-dark);
+      line-height: 1.1;
+      margin: 0.4rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .result-msg { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+    .result-btns { display: flex; gap: 0.65rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-retry {
+      padding: 0.65rem 1.4rem;
+      background: var(--sage-dark);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.03em;
+      transition: background 0.14s;
+    }
+
+    .btn-retry:hover { background: var(--sage-deep); }
+
+    .btn-done {
+      padding: 0.65rem 1.4rem;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid #c8d0c8;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-done:hover { background: var(--sage-faint); }
+
+    @media (max-width: 480px) {
+      .section-body, .section-foot { padding: 1rem; }
+      .section-head { padding: 0.85rem 1rem; }
+      .modal-body { padding: 1.15rem; }
+    }
+
+    /* ── KLICKBARA BEGREPP ── */
+    .term {
+      color: var(--sage-dark);
+      border-bottom: 1px dotted var(--sage);
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .term:hover {
+      color: var(--sage);
+      border-bottom-color: var(--sage-mid);
+    }
+
+    /* ── BEGREPPS-POPUP ── */
+    .def-popup {
+      position: fixed;
+      z-index: 800;
+      max-width: 290px;
+      background: var(--sage-deep);
+      color: #d8e4d9;
+      border-radius: 10px;
+      padding: 1rem 1.1rem 0.9rem;
+      box-shadow: 0 10px 32px rgba(10,20,10,0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.14s, transform 0.14s;
+      transform: translateY(5px);
+    }
+
+    .def-popup.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .def-popup-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--sage-mid);
+      margin-bottom: 0.4rem;
+    }
+
+    .def-popup-text {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .def-popup-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.6rem;
+      background: none;
+      border: none;
+      color: var(--sage-mid);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.1rem 0.25rem;
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    .def-popup-close:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Biologi · Åk 6 · Pluggsida</div>
+  <h1>Evolution och livets utveckling</h1>
+</header>
+
+<div class="sticky-bar">
+  <span class="sticky-bar-text">Läs varje avsnitt – testa dig sedan med mini-quiz eller allt på en gång</span>
+  <button class="btn-all" onclick="startQuiz('all')">Quiz på allt</button>
+</div>
+
+<main>
+
+  <!-- 1. LIVETS UTVECKLING -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🌍</span>
+      <span class="section-title">Livets utveckling</span>
+    </div>
+    <div class="section-body">
+      <p>Jorden och solsystemet bildades för <strong>4,6 miljarder år sedan</strong> från gas, stoft och is. Asteroider med vatten slog ner på jorden och bildade haven när planeten svalnade.</p>
+      <div class="callout">
+        <strong>De allra första livsformerna</strong> var enkla <span class="term" data-key="encellig">encelliga organismer</span> – inga djur, inga växter, bara mikroskopiska varelser som liknade dagens bakterier. De uppstod i haven för <strong>4 miljarder år sedan</strong>. Från dessa utvecklades sedan, under hundratals miljoner år, mer komplexa livsformer.
+      </div>
+      <p>Livet har alltså gått från en enda <span class="term" data-key="urcell">urcell</span> till mer än 1 miljon kända arter idag. Denna process kallas <span class="term" data-key="evolution">evolution</span>.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('livets-utveckling')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 2. VAD ÄR EN ART? -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🐾</span>
+      <span class="section-title">Vad är en art?</span>
+    </div>
+    <div class="section-body">
+      <p>En <span class="term" data-key="art">art</span> är en grupp levande varelser som:</p>
+      <div class="callout">
+        Liknar varandra<br>
+        Kan para sig med varandra<br>
+        Kan få avkomma som <em>i sin tur</em> kan få avkomma
+      </div>
+      <p>Måsar är ett exempel – det finns många <em>arter</em> av måsar, men de tillhör alla samma fågelfamilj. Idag känner vi till över <strong>1 miljon arter</strong> – och många fler väntar på att upptäckas.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('vad-ar-en-art')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 3. ANPASSNINGAR SKAPAR NYA ARTER -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🔬</span>
+      <span class="section-title">Anpassningar skapar nya arter</span>
+    </div>
+    <div class="section-body">
+      <p>En <span class="term" data-key="anpassning">anpassning</span> är en egenskap som hjälper en organism att överleva och fortplanta sig i sin miljö. Individer med fördelaktiga egenskaper klarar sig bättre, får fler ungar och för egenskapen vidare.</p>
+      <div class="callout">
+        <strong>Exempel – fågelns näbb:</strong><br>
+        Fåglar med <em>längre näbbar</em> når djupare i marksprickor → mer mat → fler ungar överlever → nästa generation har i snitt längre näbbar.<br><br>
+        <strong>Hur arter anpassar sig till ny miljö:</strong><br>
+        Det sker inte över en livstid – utan genom <span class="term" data-key="naturligt-urval">naturligt urval</span> under många generationer. De individer vars egenskaper råkar passa den nya miljön överlever och fortplantar sig, övriga gör det inte.
+      </div>
+      <p>Över tillräckligt lång tid kan en population förändras så mycket att den bildar en <strong>helt ny art</strong>.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('anpassningar-nya-arter')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 4. NATURLIGT URVAL -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🌿</span>
+      <span class="section-title">Naturligt urval</span>
+    </div>
+    <div class="section-body">
+      <p><span class="term" data-key="naturligt-urval">Naturligt urval</span> innebär att de individer som råkar ha egenskaper som passar miljön överlever och får fler ungar – de med sämre egenskaper får färre ungar eller dör tidigare.</p>
+      <div class="callout">
+        <strong>Vad kan göra att en art dör ut?</strong><br>
+        · Livsmiljön förändras snabbt (t.ex. klimatförändringar)<br>
+        · <span class="term" data-key="habitatforstoring">Habitatförstöring</span> – skogen avverkas, vattnet förorenas<br>
+        · Konkurrens från en annan art som är bättre anpassad<br>
+        · Sjukdomar som slår ut hela populationen<br><br>
+        Om förändringen sker för snabbt hinner inte arten anpassa sig genom naturligt urval – och dör ut.
+      </div>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('naturligt-urval')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 5. BIOLOGISK MÅNGFALD -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🦋</span>
+      <span class="section-title">Biologisk mångfald</span>
+    </div>
+    <div class="section-body">
+      <p><span class="term" data-key="biologisk-mangfald">Biologisk mångfald</span> innebär att naturen är rik på variation – många olika arter, i många olika miljöer.</p>
+      <div class="callout">
+        <strong>Människans påverkan:</strong><br>
+        Utsläpp av <span class="term" data-key="vaxthusgas">växthusgaser</span> och <span class="term" data-key="habitatforstoring">habitatförstöring</span> (t.ex. avskogning, bebyggelse) leder till att arter dör ut <em>mycket snabbare</em> än vad som är naturligt.<br><br>
+        <strong>Varför spelar det roll?</strong><br>
+        Varje art spelar en roll i sitt ekosystem. När en art försvinner kan det påverka hela kedjan – rovdjur förlorar sitt byte, växter förlorar sina pollinatörer, och så vidare.
+      </div>
+      <p>Genom att identifiera hotade arter tidigt och vidta åtgärder – t.ex. naturreservat eller lagstiftning – kan vi bromsa utdöendet.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('biologisk-mangfald')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 6. ANPASSNINGAR I VATTEN -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🐟</span>
+      <span class="section-title">Anpassningar i vatten</span>
+    </div>
+    <div class="section-body">
+      <p>Livet började i vatten – och många landlevande djur har sina rötter i vattendjur. Det är ett tydligt exempel på hur en art kan anpassa sig till en ny miljö över lång tid.</p>
+      <div class="callout">
+        <strong>Fiskar:</strong> Andas med <span class="term" data-key="galar">gälar</span> och reglerar flytkraft med <span class="term" data-key="simblasa">simblåsan</span>. Långsmal kropp minskar vattenmotstånd.<br><br>
+        <strong>Landdjur:</strong> Andas med lungor. Vissa kan även ta upp syre direkt <em>genom huden</em>. Förfäderna till landdjur hade troligen en primitiv typ av lunga som hjälpte dem att överleva på land.<br><br>
+        <strong>Vattenväxter:</strong> Tar upp näring med bladen. Vissa har rötter för att hålla sig på plats och transportera syre.
+      </div>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('anpassningar-vatten')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 7. ANPASSNINGAR HOS VÄXTÄTARE -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🦒</span>
+      <span class="section-title">Anpassningar hos växtätare</span>
+    </div>
+    <div class="section-body">
+      <p>Växtätare är specialiserade på att nå och äta sin mat.</p>
+      <div class="callout">
+        🦒 <strong>Giraffen:</strong> Långa ben och hals → når löv högt upp i träden.<br><br>
+        🐃 <strong>Betande djur:</strong> Håller savannen öppen – utan dem skulle savannen växa igen och bli skog.
+      </div>
+      <p>Det finns flera <span class="term" data-key="underart">underarter</span> av giraffer som skiljs åt genom pälsens mönster och färger – ett exempel på hur <span class="term" data-key="naturligt-urval">naturligt urval</span> skapar variation inom en art.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('anpassningar-vaxtarare')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 8. ARTER I NYA OMRÅDEN -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🗺️</span>
+      <span class="section-title">Arter i nya områden</span>
+    </div>
+    <div class="section-body">
+      <p>Arter försöker sprida sig – men naturliga hinder bromsar dem:</p>
+      <div class="callout">
+        🌊 Hav &nbsp;·&nbsp; ⛰️ Berg &nbsp;·&nbsp; 🏜️ Öknar
+      </div>
+      <p>Ändå finns liknande arter på flera kontinenter – eftersom kontinenterna <em>tidigare hängde ihop</em>. Arterna spreds och anpassade sig sedan självständigt.</p>
+      <p>Australien är unikt: där finns <span class="term" data-key="pungdjur">pungdjur</span> och kängurur – men inga stora kattdjur. Det beror på att Australien isolerades från resten av världen tidigt, och arterna där utvecklades sedan helt på egen hand.</p>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('arter-nya-omraden')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+  <!-- 9. MÄNNISKANS UTVECKLING -->
+  <div class="section-card">
+    <div class="section-head">
+      <span class="section-icon">🧬</span>
+      <span class="section-title">Människans utveckling</span>
+    </div>
+    <div class="section-body">
+      <p>Människa och apa har gemensamma förfäder. Vi delar <strong>98,5 % av <span class="term" data-key="dna">DNA</span>:t</strong> med schimpansen – vår närmsta levande släkting.</p>
+      <p>För <strong>över 5 miljoner år sedan</strong> skildes en grupp från resten och startade människans evolution. <span class="term" data-key="fossil">Fossilfynd</span>, främst från Afrika, ger oss ledtrådar om hur det gick till.</p>
+      <ul class="species-list">
+        <li><span class="term" data-key="australopithecus"><strong>Australopithecus</strong></span> – <em>3 miljoner år sedan.</em> Gick upprätt och använde enkla verktyg, men hade en hjärna mer lik apans.</li>
+        <li><span class="term" data-key="homo-habilis"><strong>Homo habilis</strong></span> – <em>2,5 miljoner år sedan.</em> Förste i släktet Homo. Jagade och använde stenverktyg.</li>
+        <li><span class="term" data-key="neanderthalare"><strong>Homo neanderthalensis (Neandertalarna)</strong></span> – <em>400 000–30 000 år sedan</em> i Europa. Hade faktiskt <em>större</em> hjärnor än vi. Jagade, sydde kläder och begravde sina döda.</li>
+        <li><span class="term" data-key="homo-sapiens"><strong>Homo sapiens</strong></span> – det är vi! Levde samtidigt som neandertalarna. Neandertalarna dog ut för ca 30 000 år sedan, troligen pga klimatförändringar och konkurrens.</li>
+      </ul>
+    </div>
+    <div class="section-foot">
+      <button class="btn-mini" onclick="startQuiz('manniskans-utveckling')">Testa dig på detta avsnitt</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── BEGREPPS-POPUP ── -->
+<div class="def-popup" id="defPopup" role="tooltip">
+  <button class="def-popup-close" onclick="closePopup()" aria-label="Stäng">✕</button>
+  <div class="def-popup-label" id="defPopupLabel"></div>
+  <div class="def-popup-text" id="defPopupText"></div>
+</div>
+
+<!-- ── QUIZ MODAL ── -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <span class="modal-head-title" id="modalTitle">Quiz</span>
+      <button class="btn-close" onclick="closeQuiz()" aria-label="Stäng">✕</button>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="modal-body">
+
+      <!-- FRÅGE-SKÄRM -->
+      <div id="questionScreen">
+        <div class="q-counter" id="qCounter">Fråga 1 av 5</div>
+        <div class="q-text" id="qText"></div>
+        <div class="options" id="optionsEl"></div>
+        <div class="feedback" id="feedbackEl"></div>
+        <button class="btn-next" id="btnNext" onclick="nextQuestion()">Nästa fråga →</button>
+      </div>
+
+      <!-- RESULTAT-SKÄRM -->
+      <div class="result" id="resultScreen">
+        <div class="result-emoji" id="resEmoji"></div>
+        <div class="result-heading" id="resHeading"></div>
+        <div class="result-score" id="resScore"></div>
+        <div class="result-msg" id="resMsg"></div>
+        <div class="result-btns">
+          <button class="btn-retry" onclick="retryQuiz()">🔄 Försök igen</button>
+          <button class="btn-done" onclick="closeQuiz()">✅ Stäng</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── GLOSSARIUM ──
+const GLOSSARY = {
+  'evolution': {
+    label: 'Evolution',
+    text: 'Den gradvisa förändringen av arter över lång tid, driven av naturligt urval och genetiska variationer. All biologisk mångfald vi ser idag är resultatet av evolution.'
+  },
+  'naturligt-urval': {
+    label: 'Naturligt urval',
+    text: 'Processen där individer med fördelaktiga egenskaper överlever bättre, fortplantar sig mer och för sina egenskaper vidare. Över tid förändras hela arten i den riktningen.'
+  },
+  'anpassning': {
+    label: 'Anpassning',
+    text: 'En egenskap hos en organism som hjälper den att överleva och fortplanta sig i sin miljö. Exempel: giraffens långa hals, fiskens gälar, kamelens puckel.'
+  },
+  'art': {
+    label: 'Art',
+    text: 'En grupp levande varelser som liknar varandra och kan para sig med varandra och få avkomma som i sin tur också kan få avkomma.'
+  },
+  'biologisk-mangfald': {
+    label: 'Biologisk mångfald',
+    text: 'Variationen av alla levande organismer på jorden – alla arter, deras genetiska variation och de ekosystem de lever i. Mångfalden är viktig för ekosystemens stabilitet.'
+  },
+  'urcell': {
+    label: 'Urcell',
+    text: 'Den allra första typen av levande cell som uppstod på jorden för ca 4 miljarder år sedan. Allt liv på jorden härstammar från denna – från bakterier till människor.'
+  },
+  'encellig': {
+    label: 'Encellig organism',
+    text: 'En organism som består av bara en enda cell, t.ex. bakterier. De var de allra första livsformerna på jorden och levde i haven redan för 4 miljarder år sedan.'
+  },
+  'fossil': {
+    label: 'Fossil',
+    text: 'Bevarat spår av en tidigare levande organism – t.ex. ben, skal eller avtryck som bevarats i bergarter under miljontals år. Fossilfynd ger oss kunskap om hur livet såg ut förr.'
+  },
+  'dna': {
+    label: 'DNA',
+    text: 'Den kemiska "ritning" som finns i varje cells kärna och styr hur organismen byggs upp. DNA ärvs från föräldrar till barn – likheter i DNA visar hur nära besläktade arter är.'
+  },
+  'habitatforstoring': {
+    label: 'Habitatförstöring',
+    text: 'När ett djurs eller en växts naturliga livsmiljö (habitat) skadas eller förstörs, t.ex. genom avskogning, bebyggelse eller föroreningar. En av de vanligaste orsakerna till att arter hotas.'
+  },
+  'vaxthusgas': {
+    label: 'Växthusgas',
+    text: 'Gas (t.ex. koldioxid, metan) som håller kvar värme i atmosfären. Ökade utsläpp från industri och transporter förstärker växthuseffekten och driver klimatförändringar.'
+  },
+  'galar': {
+    label: 'Gälar',
+    text: 'Fiskarnas andningsorgan. De tar upp syre som är löst i vattnet och avger koldioxid – precis som lungor gör för landlevande djur, fast i vatten.'
+  },
+  'simblasa': {
+    label: 'Simblåsa',
+    text: 'En gasfylld blåsa inne i fiskar. Fisken kan reglera hur mycket gas som finns i blåsan och på så sätt hålla sig på rätt djup utan att behöva simma aktivt.'
+  },
+  'underart': {
+    label: 'Underart',
+    text: 'En population inom en art som skiljer sig lite från andra populationer – t.ex. i utseende – men som fortfarande kan para sig med dem. Giraffens olika pälsmönster är ett exempel.'
+  },
+  'pungdjur': {
+    label: 'Pungdjur',
+    text: 'Däggdjur vars ungar föds mycket outvecklade och sedan fortsätter att utvecklas i en pung på moderns mage. Exempel: känguru, koala, wombat. Vanliga i Australien.'
+  },
+  'australopithecus': {
+    label: 'Australopithecus',
+    text: 'En tidig mänsklig förfader som levde för ca 3 miljoner år sedan. Gick upprätt men hade en hjärna närmre apans storlek. Lucy, ett känt skelett, tillhör denna grupp.'
+  },
+  'homo-habilis': {
+    label: 'Homo habilis',
+    text: '"Den händige människan." Levde för ca 2,5 miljoner år sedan. Var de första i släktet Homo – de använde enkla stenverktyg och jagade.'
+  },
+  'neanderthalare': {
+    label: 'Homo neanderthalensis',
+    text: 'Levde i Europa för 400 000–30 000 år sedan. Hade faktiskt något större hjärna än Homo sapiens. Jagade, sydde kläder, begravde sina döda och levde i sociala grupper.'
+  },
+  'homo-sapiens': {
+    label: 'Homo sapiens',
+    text: '"Den kloke människan" – det är vi! Uppstod i Afrika och är den enda av Homo-arterna som fortfarande finns. Levde sida vid sida med neandertalarna under tusentals år.'
+  }
+};
+
+// ── QUIZ-DATA ──
+const DATA = {
+  'livets-utveckling': {
+    title: 'Livets utveckling',
+    qs: [
+      {
+        q: 'För hur länge sedan bildades jorden och solsystemet?',
+        opts: ['4,6 miljarder år sedan', '4 miljarder år sedan', '3 miljarder år sedan', '1 miljard år sedan'],
+        c: 0,
+        exp: 'Rätt! Jorden bildades för 4,6 miljarder år sedan – från gas, stoft och is.'
+      },
+      {
+        q: 'Var på jorden uppstod det allra första livet?',
+        opts: ['På land', 'I atmosfären', 'I haven', 'I öknar'],
+        c: 2,
+        exp: 'Rätt! Livet uppstod i haven för 4 miljarder år sedan.'
+      },
+      {
+        q: 'Vilka var de allra första livsformerna på jorden?',
+        opts: ['Fiskar och alger', 'Insekter och ormbunkar', 'Enkla encelliga organismer', 'Dinosaurier'],
+        c: 2,
+        exp: 'Rätt! De första livsformerna var enkla encelliga organismer – liknande bakterier – som levde i haven.'
+      },
+      {
+        q: 'Vad förde asteroider med sig till den unga jorden?',
+        opts: ['Syre', 'Koldioxid', 'Salt', 'Vatten'],
+        c: 3,
+        exp: 'Rätt! Asteroider med vatten slog ner och bildade haven när jorden svalnade.'
+      },
+      {
+        q: 'Av vad bestod det ursprungliga materialet som bildade solsystemet?',
+        opts: ['Vatten, sten och metall', 'Lava, sand och salt', 'Gas, stoft och is', 'Kol, väte och syre'],
+        c: 2,
+        exp: 'Rätt! Solsystemet bildades från gas, stoft och is.'
+      }
+    ]
+  },
+  'vad-ar-en-art': {
+    title: 'Vad är en art?',
+    qs: [
+      {
+        q: 'Vad krävs för att två djur ska tillhöra SAMMA art?',
+        opts: [
+          'De ska se exakt likadana ut',
+          'De ska bo på samma plats',
+          'De ska kunna para sig och få avkomma som också kan få avkomma',
+          'De ska äta samma mat'
+        ],
+        c: 2,
+        exp: 'Rätt! Samma art = kan para sig och få fertil avkomma.'
+      },
+      {
+        q: 'Vilken fågelfamilj nämns i texten som exempel på en familj med många arter?',
+        opts: ['Duvor', 'Örnar', 'Ugglor', 'Måsar'],
+        c: 3,
+        exp: 'Rätt! Måsar nämns som exempel – det finns många olika måsarter.'
+      },
+      {
+        q: 'Ungefär hur många kända arter finns det på jorden idag?',
+        opts: ['Runt 10 000', 'Runt 100 000', 'Över 1 miljon', 'Exakt 500 000'],
+        c: 2,
+        exp: 'Rätt! Det finns över 1 miljon kända arter – och många fler väntar på att upptäckas.'
+      }
+    ]
+  },
+  'anpassningar-nya-arter': {
+    title: 'Anpassningar skapar nya arter',
+    qs: [
+      {
+        q: 'Vad är en anpassning?',
+        opts: [
+          'En förändring en organism gör med vilje under sin livstid',
+          'En egenskap som hjälper en organism att överleva och fortplanta sig i sin miljö',
+          'En sjukdom som uppstår i en ny miljö',
+          'Förmågan att leva i vatten'
+        ],
+        c: 1,
+        exp: 'Rätt! En anpassning är en egenskap – t.ex. giraffens långa hals – som hjälper organismen att klara sin miljö.'
+      },
+      {
+        q: 'Hur kan en art anpassa sig till en ny miljö?',
+        opts: [
+          'Varje individ bestämmer sig för att förändras',
+          'Alla individer i arten förändras på en gång',
+          'Genom naturligt urval under många generationer – de som passar miljön överlever och fortplantar sig',
+          'Arten söker hjälp av andra arter'
+        ],
+        c: 2,
+        exp: 'Rätt! Anpassning sker inte under en livstid – det sker via naturligt urval under många generationer.'
+      },
+      {
+        q: 'Vilket exempel ges i texten på en fördelaktig anpassning?',
+        opts: [
+          'Fiskar med bredare fenor simmar fortare',
+          'Fåglar med längre näbbar når djupare och får mer mat',
+          'Däggdjur med tjockare päls tål kyla bättre',
+          'Insekter med större vingar flyger längre'
+        ],
+        c: 1,
+        exp: 'Rätt! Längre näbb → mer mat → fler ungar överlever → egenskapen sprids!'
+      },
+      {
+        q: 'Vad kan anpassningar leda till, förutom förändringar inom en art?',
+        opts: ['Att arten försvinner', 'Att nya arter bildas', 'Att arten slutar fortplanta sig', 'Att arten krymper'],
+        c: 1,
+        exp: 'Rätt! Över tillräckligt lång tid kan anpassningar leda till att helt nya arter bildas.'
+      }
+    ]
+  },
+  'naturligt-urval': {
+    title: 'Naturligt urval',
+    qs: [
+      {
+        q: 'Vad innebär naturligt urval?',
+        opts: [
+          'Att människan väljer vilka djur som ska få leva',
+          'Att individer med fördelaktiga egenskaper överlever bättre och för dem vidare till nästa generation',
+          'Att alla djur i naturen lever lika länge',
+          'Att arter byter miljö när de vill'
+        ],
+        c: 1,
+        exp: 'Rätt! Naturligt urval = de med fördelaktiga egenskaper överlever och fortplantar sig bättre.'
+      },
+      {
+        q: 'Vad kan göra att en art dör ut?',
+        opts: [
+          'Att individerna i arten lever för länge',
+          'Att arten är för stor',
+          'Att livsmiljön förändras snabbt eller att arten konkurreras ut',
+          'Att arten har för många ungar'
+        ],
+        c: 2,
+        exp: 'Rätt! Om livsmiljön förändras för snabbt, eller om en annan art konkurrerar ut den, kan en art dö ut.'
+      },
+      {
+        q: 'Vad händer med arter som INTE är väl anpassade till sin miljö?',
+        opts: ['De anpassar sig omedelbart', 'De överlever ändå', 'De försvinner', 'De flyttar till havet'],
+        c: 2,
+        exp: 'Rätt! Dåligt anpassade arter konkurreras ut och försvinner.'
+      },
+      {
+        q: 'Vad kan naturligt urval leda till om en arts livsmiljö förändras för snabbt?',
+        opts: ['Snabbare reproduktion', 'Längre livslängd', 'Utdöende', 'Större ungar'],
+        c: 2,
+        exp: 'Rätt! Om förändringen sker snabbare än naturligt urval hinner verka kan arten dö ut.'
+      }
+    ]
+  },
+  'biologisk-mangfald': {
+    title: 'Biologisk mångfald',
+    qs: [
+      {
+        q: 'Vad innebär biologisk mångfald?',
+        opts: [
+          'Att det finns många individer av en och samma art',
+          'Att naturen är rik på variation av arter',
+          'Att djur lever i stora flockar',
+          'Att växter kan anpassa sig snabbt'
+        ],
+        c: 1,
+        exp: 'Rätt! Biologisk mångfald = naturen är rik på variation av arter.'
+      },
+      {
+        q: 'Vad kan göra att arter dör ut snabbare än naturligt?',
+        opts: [
+          'Att naturen lämnas ifred',
+          'Att det bildas fler naturreservat',
+          'Habitatförstöring och utsläpp av växthusgaser',
+          'Att djur lever längre'
+        ],
+        c: 2,
+        exp: 'Rätt! Habitatförstöring (t.ex. avskogning) och klimatförändringar orsakar onaturligt snabbt utdöende.'
+      },
+      {
+        q: 'Varför är biologisk mångfald viktig?',
+        opts: [
+          'Den är inte viktig',
+          'Varje art spelar en roll i sitt ekosystem – om en försvinner kan hela kedjan påverkas',
+          'Det är bara viktigt för forskning',
+          'Fler arter betyder mer mat för människor'
+        ],
+        c: 1,
+        exp: 'Rätt! Varje art är en del av ett nätverk – rovdjur, bytesdjur, pollinatörer – som alla är beroende av varandra.'
+      },
+      {
+        q: 'Hur kan vi bevara den biologiska mångfalden?',
+        opts: [
+          'Flytta alla djur till städer',
+          'Identifiera hotade arter och vidta åtgärder i tid',
+          'Sluta studera naturen',
+          'Ignorera klimatförändringar'
+        ],
+        c: 1,
+        exp: 'Rätt! Tidiga åtgärder – som naturreservat och lagstiftning – är nyckeln till att skydda hotade arter.'
+      }
+    ]
+  },
+  'anpassningar-vatten': {
+    title: 'Anpassningar i vatten',
+    qs: [
+      {
+        q: 'Hur andas fiskar?',
+        opts: ['Genom lungor', 'Genom huden', 'Genom gälar och simblåsor', 'Genom munnen'],
+        c: 2,
+        exp: 'Rätt! Fiskar andas med gälar och reglerar flytkraften med simblåsan.'
+      },
+      {
+        q: 'Hur är fiskar anpassade till rörelse i vatten?',
+        opts: ['De har fyra ben', 'De har en lång hals', 'De har en långsmal kroppsform', 'De har stora öron'],
+        c: 2,
+        exp: 'Rätt! Den långsmala formen minskar motståndet i vattnet.'
+      },
+      {
+        q: 'Hur tar vattenväxter upp näringsämnen?',
+        opts: ['Enbart via rötterna', 'Med bladen', 'Via stammen', 'Via blomman'],
+        c: 1,
+        exp: 'Rätt! Vattenväxter tar upp näring med bladen – inte bara via rötterna.'
+      },
+      {
+        q: 'Vad visar det faktum att landlevande djur har lungor men härstammar från vattendjur?',
+        opts: [
+          'Att landdjur alltid levt på land',
+          'Att anpassning kan leda till helt nya egenskaper för en ny miljö, över lång tid',
+          'Att vatten och land är samma miljö',
+          'Att fiskar en gång hade lungor'
+        ],
+        c: 1,
+        exp: 'Rätt! Övergången från vatten till land är ett klassiskt exempel på hur naturligt urval anpassar arter till en ny miljö.'
+      }
+    ]
+  },
+  'anpassningar-vaxtarare': {
+    title: 'Anpassningar hos växtätare',
+    qs: [
+      {
+        q: 'Varför har giraffen lång hals och långa ben?',
+        opts: [
+          'För att simma bättre',
+          'För att springa snabbare',
+          'För att nå mat högt upp i träden',
+          'För att se rovdjur på håll'
+        ],
+        c: 2,
+        exp: 'Rätt! Den långa halsen och benen ger giraffen tillgång till löv högt upp.'
+      },
+      {
+        q: 'Vad händer med savannen om betande djur försvinner?',
+        opts: [
+          'Den blir en öken',
+          'Den växer igen och förvandlas till skog',
+          'Den blir en sjö',
+          'Ingenting förändras'
+        ],
+        c: 1,
+        exp: 'Rätt! Betande djur håller savannen öppen. Utan dem växer vegetationen igen.'
+      },
+      {
+        q: 'Vad skiljer de olika underarterna av giraffer åt?',
+        opts: ['Storleken på hjärnan', 'Pälsens mönster och färger', 'Antalet ben', 'Längden på svansen'],
+        c: 1,
+        exp: 'Rätt! De olika giraffunderarterna kan skiljas åt på pälsens mönster och färger.'
+      }
+    ]
+  },
+  'arter-nya-omraden': {
+    title: 'Arter i nya områden',
+    qs: [
+      {
+        q: 'Vad begränsar arters spridning till nya områden?',
+        opts: ['Brist på mat', 'Rovdjur', 'Hav, berg och öknar', 'Temperaturen'],
+        c: 2,
+        exp: 'Rätt! Hav, berg och öknar fungerar som naturliga hinder för spridning.'
+      },
+      {
+        q: 'Vilka unika djur finns i Australien som inte finns naturligt på andra kontinenter?',
+        opts: [
+          'Lejon och elefanter',
+          'Pungdjur och kängurur',
+          'Isbjörnar och sälar',
+          'Kameler och gaseller'
+        ],
+        c: 1,
+        exp: 'Rätt! Australien har unika pungdjur och kängurur – och inga stora kattdjur.'
+      },
+      {
+        q: 'Varför finns liknande (men ej identiska) arter på skilda kontinenter?',
+        opts: [
+          'De simmar dit',
+          'Människan förde dem dit',
+          'Kontinenterna hängde tidigare ihop',
+          'De flyger dit'
+        ],
+        c: 2,
+        exp: 'Rätt! Kontinenterna var sammankopplade förr – arterna spreds och anpassade sig sedan var för sig.'
+      },
+      {
+        q: 'Varför har Australien inga stora kattdjur?',
+        opts: [
+          'Klimatet är för kallt',
+          'Australien isolerades tidigt och kattdjuren hade inte spridit sig dit ännu',
+          'Kattdjur kan inte simma',
+          'De dog ut för en miljon år sedan världen över'
+        ],
+        c: 1,
+        exp: 'Rätt! Australien isolerades från andra kontinenter tidigt, och kattdjuren hade inte hunnit sprida sig dit.'
+      }
+    ]
+  },
+  'manniskans-utveckling': {
+    title: 'Människans utveckling',
+    qs: [
+      {
+        q: 'Hur stor andel av DNA:t delar vi med schimpansen?',
+        opts: ['85 %', '95 %', '98,5 %', '99,9 %'],
+        c: 2,
+        exp: 'Rätt! Vi delar 98,5 % av DNA:t med schimpansen – vår närmsta levande släkting.'
+      },
+      {
+        q: 'Vad heter vår närmsta levande släkting?',
+        opts: ['Gorilla', 'Orangutang', 'Schimpansen', 'Bonobo'],
+        c: 2,
+        exp: 'Rätt! Schimpansen är vår närmsta levande släkting.'
+      },
+      {
+        q: 'För hur länge sedan levde Australopithecus?',
+        opts: ['För 1 miljon år sedan', 'För 3 miljoner år sedan', 'För 10 miljoner år sedan', 'För 500 000 år sedan'],
+        c: 1,
+        exp: 'Rätt! Australopithecus levde för 3 miljoner år sedan och gick upprätt.'
+      },
+      {
+        q: 'Vad utmärkte Homo habilis jämfört med tidigare förfäder?',
+        opts: [
+          'De var de första att gå upprätt',
+          'De var de första i släktet Homo och jagade med verktyg',
+          'De hade störst hjärna av alla',
+          'De byggde hus och odlade mat'
+        ],
+        c: 1,
+        exp: 'Rätt! Homo habilis var de första i Homo-släktet och började jaga och använda verktyg.'
+      },
+      {
+        q: 'Var levde neandertalarna?',
+        opts: ['I Afrika', 'I Asien', 'I Europa', 'I Australien'],
+        c: 2,
+        exp: 'Rätt! Neandertalarna levde i Europa för 400 000–30 000 år sedan.'
+      },
+      {
+        q: 'Varför dog neandertalarna troligen ut?',
+        opts: [
+          'De drunknade i en stor översvämning',
+          'De åt fel mat',
+          'Klimatförändringar och konkurrens från Homo sapiens',
+          'De migrerade till månen'
+        ],
+        c: 2,
+        exp: 'Rätt! Klimatförändringar och konkurrens från Homo sapiens anses vara de troligaste orsakerna.'
+      },
+      {
+        q: 'Var hittas de flesta fossilfynden från människans förfäder?',
+        opts: ['I Europa', 'I Asien', 'I Afrika', 'I Amerika'],
+        c: 2,
+        exp: 'Rätt! Fossilfynd från människans förfäder hittas främst i Afrika.'
+      }
+    ]
+  }
+};
+
+// ── STATE ──
+let mode = null;
+let questions = [];
+let idx = 0;
+let score = 0;
+let answered = false;
+
+// ── HELPERS ──
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function reshuffleOpts(q) {
+  const pairs = q.opts.map((text, i) => ({ text, orig: i }));
+  const shuf = shuffle(pairs);
+  return { ...q, opts: shuf.map(p => p.text), c: shuf.findIndex(p => p.orig === q.c) };
+}
+
+function getAllQs() {
+  let all = [];
+  Object.values(DATA).forEach(s => s.qs.forEach(q => all.push(q)));
+  return shuffle(all).map(reshuffleOpts);
+}
+
+// ── QUIZ START ──
+function startQuiz(m) {
+  mode = m;
+  idx = 0;
+  score = 0;
+  answered = false;
+
+  if (m === 'all') {
+    questions = getAllQs();
+    document.getElementById('modalTitle').textContent = '🏆 Quiz på allt';
+  } else {
+    questions = shuffle(DATA[m].qs).map(reshuffleOpts);
+    document.getElementById('modalTitle').textContent = DATA[m].title;
+  }
+
+  document.getElementById('questionScreen').style.display = 'block';
+  document.getElementById('resultScreen').classList.remove('show');
+  showQ();
+  document.getElementById('overlay').classList.add('open');
+}
+
+function showQ() {
+  const q = questions[idx];
+  const total = questions.length;
+
+  document.getElementById('qCounter').textContent = `Fråga ${idx + 1} av ${total}`;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('progressFill').style.width = `${(idx / total) * 100}%`;
+
+  const el = document.getElementById('optionsEl');
+  el.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => pick(i);
+    el.appendChild(btn);
+  });
+
+  document.getElementById('feedbackEl').className = 'feedback';
+  document.getElementById('feedbackEl').textContent = '';
+  document.getElementById('btnNext').className = 'btn-next';
+  answered = false;
+}
+
+function pick(chosen) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[idx];
+  const btns = document.querySelectorAll('.opt-btn');
+
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.c) btn.classList.add('correct');
+    else if (i === chosen) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedbackEl');
+  if (chosen === q.c) {
+    score++;
+    fb.className = 'feedback correct';
+    fb.textContent = '✅ ' + q.exp;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.textContent = '❌ ' + q.exp;
+  }
+
+  const isLast = idx === questions.length - 1;
+  const btnNext = document.getElementById('btnNext');
+  btnNext.textContent = isLast ? '🎉 Visa resultat' : 'Nästa fråga →';
+  btnNext.className = 'btn-next show';
+}
+
+function nextQuestion() {
+  idx++;
+  if (idx >= questions.length) showResult();
+  else showQ();
+}
+
+function showResult() {
+  document.getElementById('questionScreen').style.display = 'none';
+  document.getElementById('resultScreen').classList.add('show');
+  document.getElementById('progressFill').style.width = '100%';
+
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('resScore').textContent = `${score} / ${total}`;
+
+  let emoji, heading, msg;
+  if (pct === 100) {
+    emoji = '🏆'; heading = 'Perfekt resultat!';
+    msg = 'Wow – du kan det här utan och innan! Toppen!';
+  } else if (pct >= 80) {
+    emoji = '🌟'; heading = 'Jättebra jobbat!';
+    msg = 'Du kan det mesta – kolla igenom de du missade en gång till.';
+  } else if (pct >= 60) {
+    emoji = '👍'; heading = 'Bra försök!';
+    msg = 'Du är på rätt väg! Läs avsnitten igen och försök en gång till.';
+  } else if (pct >= 40) {
+    emoji = '📖'; heading = 'Fortsätt plugga!';
+    msg = 'Läs igenom texten noga – du klarar det om du övar lite till!';
+  } else {
+    emoji = '💪'; heading = 'Kämpa på!';
+    msg = 'Börja med ett avsnitt i taget och testa mini-quizet direkt efteråt!';
+  }
+
+  document.getElementById('resEmoji').textContent = emoji;
+  document.getElementById('resHeading').textContent = heading;
+  document.getElementById('resMsg').textContent = msg;
+}
+
+function retryQuiz() { startQuiz(mode); }
+
+function closeQuiz() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeQuiz();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeQuiz(); closePopup(); }
+});
+
+// ── BEGREPPS-POPUP ──
+const popup   = document.getElementById('defPopup');
+const popLabel = document.getElementById('defPopupLabel');
+const popText  = document.getElementById('defPopupText');
+let activeTermEl = null;
+
+function openPopup(termEl, key) {
+  const entry = GLOSSARY[key];
+  if (!entry) return;
+
+  if (activeTermEl === termEl && popup.classList.contains('visible')) {
+    closePopup(); return;
+  }
+
+  activeTermEl = termEl;
+  popLabel.textContent = entry.label;
+  popText.textContent  = entry.text;
+  popup.classList.add('visible');
+  positionPopup(termEl);
+}
+
+function positionPopup(el) {
+  const rect   = el.getBoundingClientRect();
+  const pw     = popup.offsetWidth  || 290;
+  const ph     = popup.offsetHeight || 120;
+  const margin = 8;
+  const vw     = window.innerWidth;
+  const vh     = window.innerHeight;
+
+  let top  = rect.bottom + margin;
+  let left = rect.left;
+
+  if (top + ph > vh - margin) top = rect.top - ph - margin;
+  if (left + pw > vw - margin) left = vw - pw - margin;
+  if (left < margin) left = margin;
+
+  popup.style.top  = `${top + window.scrollY}px`;
+  popup.style.left = `${left}px`;
+  popup.style.position = 'absolute';
+}
+
+function closePopup() {
+  popup.classList.remove('visible');
+  activeTermEl = null;
+}
+
+document.querySelectorAll('.term').forEach(el => {
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    openPopup(el, el.dataset.key);
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!popup.contains(e.target)) closePopup();
+});
+</script>
+</body>
+</html>
